@@ -45,7 +45,8 @@ public class FileReaderRouter {
 		} catch(NullPointerException e) {
 			if(fileReaderService.isIndexBeyondMax(fileName, index)) {
 				return Response.status(HttpStatus.REQUEST_ENTITY_TOO_LARGE_413).build();
-			} else {return Response.status(HttpStatus.SERVICE_UNAVAILABLE_503).build();
+			} else {
+				return Response.status(HttpStatus.SERVICE_UNAVAILABLE_503).build();
 			}
 		}
 	}
