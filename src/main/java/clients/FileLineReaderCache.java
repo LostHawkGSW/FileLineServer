@@ -1,5 +1,6 @@
 package clients;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ public class FileLineReaderCache {
 	private final int port;
 	private final String host;
 	private HashMap<String, HashMap<Integer, String>> cache;
+	private Integer currentMax;
 
 	public FileLineReaderCache(String cacheStrategy, String host, int port) {
 		if(cacheStrategy == null || "local".equals(cacheStrategy)) {
@@ -22,6 +24,7 @@ public class FileLineReaderCache {
 
 	public void setLine(String fileUrl, int index, String line) {
 		cache.get(fileUrl).put(index, line);
+		currentMax = null;
 	}
 
 	public Optional<String> getLine(String fileUrl, int index) {
@@ -40,4 +43,11 @@ public class FileLineReaderCache {
 		cache.remove(fileUrl);
 	}
 
+	public Integer getMaxIndex(String fileUrl) {
+		if(currentMax != null) {
+			return currentMax;
+		}
+		currentMax = Collections.max(cache.get(fileUrl).keySet());
+		return currentMax;
+	}
 }

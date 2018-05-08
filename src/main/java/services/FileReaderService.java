@@ -33,12 +33,12 @@ public class FileReaderService {
 			if (!cache.isFileCached(fileUrl)) {
 				byte[] fileBytes = Files.readAllBytes(file.toPath());
 				char singleChar;
-				int index = 0;
+				int index = 1;
 				StringBuffer currentLine = new StringBuffer();
 				cache.initializeFile(fileUrl);
 				for (byte b : fileBytes) {
 					singleChar = (char) b;
-					if (singleChar == Character.LINE_SEPARATOR) {
+					if (singleChar == '\n') {
 						cache.setLine(fileUrl, index, currentLine.toString());
 						currentLine = new StringBuffer();
 						index++;
@@ -65,5 +65,12 @@ public class FileReaderService {
 	
 	public String getDefaultFileName() {
 		return defaultFileName;
+	}
+	
+	public boolean isIndexBeyondMax(String fileUrl, int index) {
+		if(cache == null || !cache.isFileCached(fileUrl) || index > cache.getMaxIndex(fileUrl)) {
+			return true;
+		}
+		return false;
 	}
 }
