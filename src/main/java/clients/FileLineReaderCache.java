@@ -1,5 +1,8 @@
 package clients;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Optional;
@@ -49,5 +52,23 @@ public class FileLineReaderCache {
 		}
 		currentMax = Collections.max(cache.get(fileUrl).keySet());
 		return currentMax;
+	}
+	
+	public void writeFileToCache(String fileUrl, File file) throws IOException {
+		byte[] fileBytes = Files.readAllBytes(file.toPath());
+		char singleChar;
+		int index = 1;
+		StringBuffer currentLine = new StringBuffer();
+		initializeFile(fileUrl);
+		for (byte b : fileBytes) {
+			singleChar = (char) b;
+			if (singleChar == '\n') {
+				setLine(fileUrl, index, currentLine.toString());
+				currentLine = new StringBuffer();
+				index++;
+			} else {
+				currentLine.append(singleChar);
+			}
+		}
 	}
 }

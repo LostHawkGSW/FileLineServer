@@ -18,7 +18,6 @@ public class FileReaderServiceTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }
