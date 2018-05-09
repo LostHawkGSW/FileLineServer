@@ -8,6 +8,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 
 import java.io.File;
 
+import javax.ws.rs.core.Response;
+
 import org.eclipse.jetty.http.HttpStatus;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +20,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.google.common.io.Resources;
-import com.sun.jersey.api.client.ClientResponse;
 
 import clients.FileLineReaderCache;
 import io.dropwizard.testing.junit.ResourceTestRule;
@@ -53,20 +54,20 @@ public class FileReaderRouterTest {
 
 	@Test
 	public void testGetGoodLine() {
-		ClientResponse response = resources.client().resource(FILE_READER_ROUTER_ENDPOINT + "/1").get(ClientResponse.class);
+		Response response = resources.client().target(FILE_READER_ROUTER_ENDPOINT + "/1").request().get();
 		assertEquals(HttpStatus.OK_200, response.getStatus());
-		assertEquals("package com.example.helloworld;", response.getEntity(String.class));
+		assertEquals("package com.example.helloworld;", response.readEntity(String.class));
 	}
 	
 	@Test
 	public void testGetBadOutOfBoundsLowLine() {
-		ClientResponse response = resources.client().resource(FILE_READER_ROUTER_ENDPOINT + "/0").get(ClientResponse.class);
+		Response response = resources.client().target(FILE_READER_ROUTER_ENDPOINT + "/0").request().get();
 		assertEquals(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE_416, response.getStatus());
 	}
 	
 	@Test
 	public void testGetBadOutOfBoundsHighLine() {
-		ClientResponse response = resources.client().resource(FILE_READER_ROUTER_ENDPOINT + "/10000").get(ClientResponse.class);
+		Response response = resources.client().target(FILE_READER_ROUTER_ENDPOINT + "/10000").request().get();
 		assertEquals(HttpStatus.REQUEST_ENTITY_TOO_LARGE_413, response.getStatus());
 	}
 }

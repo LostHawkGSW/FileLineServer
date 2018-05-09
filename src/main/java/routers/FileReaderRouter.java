@@ -10,7 +10,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.eclipse.jetty.http.HttpStatus;
-import org.powermock.api.mockito.internal.mockcreation.RuntimeExceptionProxy;
 
 import com.codahale.metrics.annotation.Timed;
 
@@ -45,7 +44,7 @@ public class FileReaderRouter {
 			} else {
 				return Response.status(HttpStatus.REQUEST_ENTITY_TOO_LARGE_413).build();
 			}
-		} catch(RuntimeExceptionProxy e) {
+		} catch(RuntimeException e) {
 			return Response.status(HttpStatus.SERVICE_UNAVAILABLE_503).build();
 		}
 	}
