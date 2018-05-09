@@ -32,11 +32,11 @@ public class FileReaderRouter {
 		if(index < 1) {
 			return Response.status(HttpStatus.REQUESTED_RANGE_NOT_SATISFIABLE_416).build();
 		}
-		if(fileReaderService.isIndexBeyondMax(fileName, index)) {
-			return Response.status(HttpStatus.REQUEST_ENTITY_TOO_LARGE_413).build();
-		}
 		if(fileName == null) {
 			fileName = fileReaderService.getDefaultFileName();
+		}
+		if(fileReaderService.isIndexBeyondMax(fileName, index)) {
+			return Response.status(HttpStatus.REQUEST_ENTITY_TOO_LARGE_413).build();
 		}
 		try {
 			Optional<String> line = fileReaderService.getLine(fileName, index);

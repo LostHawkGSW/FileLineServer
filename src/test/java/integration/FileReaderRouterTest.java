@@ -28,7 +28,7 @@ import services.FileReaderService;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest( FileReaderService.class )
 public class FileReaderRouterTest {
-	private static final String FILE_NAME = "default_test_file.txt";
+	private static final String FILE_NAME = "test_file";
 	private static final String FILE_READER_ROUTER_ENDPOINT = "/lines";
 	
 	private static final FileReaderService service = mock(FileReaderService.class);
@@ -39,7 +39,7 @@ public class FileReaderRouterTest {
 
 	@Before
 	public void setUp() throws Exception {
-		cache.writeFileToCache(FILE_NAME,  new File(Resources.getResource("test_file").toURI()));
+		cache.writeFileToCache(FILE_NAME,  new File(Resources.getResource(FILE_NAME).toURI()));
 		when(service.getDefaultFileName()).thenReturn(FILE_NAME);
 		when(service.getFileLineReaderCache()).thenReturn(cache);
 		when(service.getLine(any(String.class), any(Integer.class))).thenCallRealMethod();
