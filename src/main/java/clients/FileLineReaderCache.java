@@ -35,7 +35,13 @@ public class FileLineReaderCache {
 	}
 
 	public Optional<String> getLine(String fileUrl, int index) {
-		return Optional.ofNullable(cache.get(fileUrl).get(Integer.valueOf(index)));
+		String value = null;
+		try {
+			value = cache.get(fileUrl).get(Integer.valueOf(index));
+		} catch(NullPointerException e) {
+			
+		}
+		return Optional.ofNullable(value);
 	}
 
 	public boolean isFileCached(String fileUrl) {
