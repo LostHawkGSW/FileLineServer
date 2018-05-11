@@ -7,7 +7,8 @@ import java.util.Optional;
 
 import org.apache.commons.io.FileUtils;
 
-import clients.FileLineReaderCache;
+import clients.cache.FileLineReaderCache;
+import clients.cache.FileLineReaderCacheFactory;
 
 public class FileReaderService {
 
@@ -32,7 +33,10 @@ public class FileReaderService {
 
 	private void populateCache(String fileUrl, String cacheStrategy, String host, int port) {
 		if (getFileLineReaderCache() == null) {
-			cache = new FileLineReaderCache(cacheStrategy, host, port);
+			cache = FileLineReaderCacheFactory.getFileLineReaderCache(cacheStrategy, host, port);
+		}
+		if(cache.isFileCached(fileUrl)) {
+			return;
 		}
 		File file = new File("file.txt");
 		try {

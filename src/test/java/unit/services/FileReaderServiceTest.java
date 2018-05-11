@@ -17,14 +17,15 @@ import org.junit.Test;
 
 import com.google.common.io.Resources;
 
-import clients.FileLineReaderCache;
+import clients.cache.FileLineReaderCache;
+import clients.cache.FileLineReaderCacheFactory;
 import services.FileReaderService;
 
 public class FileReaderServiceTest {
 	private static final String FILE_NAME = "test_file";
 	
 	private static final FileReaderService service = mock(FileReaderService.class);
-	private static final FileLineReaderCache cache = new FileLineReaderCache("local", "local", 0);
+	private static final FileLineReaderCache cache = FileLineReaderCacheFactory.getFileLineReaderCache("local", "local", 0);
 
 
 	@Before

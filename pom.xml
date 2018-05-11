@@ -77,6 +77,16 @@
 		<version>${powermock.version}</version>
 		<scope>test</scope>
 	</dependency>
+	<dependency>
+	    <groupId>redis.clients</groupId>
+	    <artifactId>jedis</artifactId>
+	    <version>2.9.0</version>
+	</dependency>
+	<dependency>
+	  <groupId>ai.grakn</groupId>
+	  <artifactId>redis-mock</artifactId>
+	  <version>0.1.6</version>
+	</dependency>
   </dependencies>
   
   <build>

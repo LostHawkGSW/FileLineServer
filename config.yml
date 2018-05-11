@@ -1,3 +1,5 @@
 filereader:
     fileUrl: ${FILE_URL}
-    cacheStrategy: "local"
+    cacheStrategy: "redis"
+    host: "localhost"
+    port: 6379
