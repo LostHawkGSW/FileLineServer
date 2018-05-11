@@ -8,8 +8,11 @@ Serve lines from a file to network clients
 - When the system starts up it will download the file, parse its contents into cache, which can then be served.
 
 ○ What do we need to build your system?
-- Java 8, Maven, Redis running on "localhost" and port 6379 (can reconfigure in the config.yml), Internet connection
-- Can also run this using a local in memory cache (no redis required) as well by changing the config file cacheStrategy to "local".
+- Java 8
+- Maven
+- Redis running on "localhost" and port 6379 (can reconfigure in the config.yml)
+- Internet connection
+- **Optionally** Can also run this using a local in memory cache (no redis required) as well by changing the config file cacheStrategy to "local".
 
 ○ How will your system perform with a 1 GB file? a 10 GB file? a 100 GB file?
 - This is dependent on the memory available on the system this is being run on, as well as the configuration for memory usage by redis. If a file is larger than the memory allowed, currently it will not run as designed since we are caching the file contents into memory. This can be changed if redesigned to be a distributed system.
